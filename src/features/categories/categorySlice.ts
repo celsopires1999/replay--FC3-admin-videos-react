@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { Results } from "../../app/types/category";
+import { apiSlice } from "../api/apiSlice";
 
 export interface Category {
   id: string;
@@ -10,6 +12,28 @@ export interface Category {
   created_at: string;
   updated_at: string;
 }
+
+const endpointUrl = "/categories";
+
+function deleteCategoryMutation(category: Category) {
+  return {
+    url: `${endpointUrl}/${category.id}`,
+    method: "DELETE",
+  };
+}
+
+export const categoriesApiSlice = apiSlice.injectEndpoints({
+  endpoints: ({ query, mutation }) => ({
+    getCategories: query<Results, void>({
+      query: () => `${endpointUrl}`,
+      providesTags: ["Categories"],
+    }),
+    deleteCategory: mutation<Results, { id: string }>({
+      query: deleteCategoryMutation,
+      invalidatesTags: ["Categories"],
+    }),
+  }),
+});
 
 const dummyData: Category = {
   id: "016b3829-dad3-4466-b211-7bc771843869",
@@ -96,6 +120,8 @@ export const selectCategoryById = (state: RootState, id: string) => {
   );
 };
 
+export const { useGetCategoriesQuery, useDeleteCategoryMutation } =
+  categoriesApiSlice;
 // Extract the action creators object and the reducer
 const { actions, reducer } = categoriesSlice;
 // Extract and export each action creator by name

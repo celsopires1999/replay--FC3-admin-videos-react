@@ -9,11 +9,15 @@ import {
 } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { deleteCategory, selectCategories } from "./categorySlice";
+import {
+  selectCategories,
+  useGetCategoriesQuery,
+  useDeleteCategoryMutation,
+} from "./categorySlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type GridRowProps = {
   id: string;
@@ -28,13 +32,18 @@ export function CategoryList() {
   const dispatch = useAppDispatch();
   const [pageSize, setPageSize] = useState<number>(10);
   const { enqueueSnackbar } = useSnackbar();
-  const rows: GridRowProps[] = categories.map((category) => ({
-    id: category.id,
-    name: category.name,
-    description: category.description,
-    is_active: category.is_active,
-    created_at: new Date(category.created_at).toLocaleDateString("pt-BR"),
-  }));
+  const { data, isFetching, error } = useGetCategoriesQuery();
+  const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation();
+
+  const rows: GridRowProps[] = data
+    ? data.data.map((category) => ({
+        id: category.id,
+        name: category.name,
+        description: category.description,
+        is_active: category.is_active,
+        created_at: new Date(category.created_at).toLocaleDateString("pt-BR"),
+      }))
+    : [];
 
   const columns: GridColDef[] = [
     {
@@ -101,10 +110,18 @@ export function CategoryList() {
     );
   }
 
-  function handleDelete(id: string): void {
-    dispatch(deleteCategory(id));
-    enqueueSnackbar("Category deleted successfully", { variant: "success" });
+  async function handleDelete(id: string): Promise<void> {
+    await deleteCategory({ id });
   }
+
+  useEffect(() => {
+    if (deleteCategoryStatus.isSuccess) {
+      enqueueSnackbar("Category deleted successfully", { variant: "success" });
+    }
+    if (deleteCategoryStatus.error) {
+      enqueueSnackbar("Error deleting category", { variant: "error" });
+    }
+  }, [deleteCategoryStatus, enqueueSnackbar]);
 
   function renderNameCell(rowData: GridRenderCellParams): React.ReactNode {
     return (

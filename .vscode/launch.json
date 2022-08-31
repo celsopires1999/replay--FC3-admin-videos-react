@@ -6,7 +6,13 @@
       "request": "launch",
       "type": "chrome",
       "url": "http://host.docker.internal:3000",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "smartStep": true,
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.*",
+        "<node_internals>/**"
+      ]
     },
     {
       "name": "Attach to Chrome",
