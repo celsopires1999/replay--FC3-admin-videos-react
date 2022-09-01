@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { queryAllByAltText } from "@testing-library/react";
 import { RootState } from "../../app/store";
-import { Results } from "../../app/types/category";
+import { CategoryParams, Results } from "../../types/category";
 import { apiSlice } from "../api/apiSlice";
 
 export interface Category {
@@ -24,16 +25,33 @@ function deleteCategoryMutation(category: Category) {
 
 export const categoriesApiSlice = apiSlice.injectEndpoints({
   endpoints: ({ query, mutation }) => ({
-    getCategories: query<Results, void>({
-      query: () => `${endpointUrl}`,
+    getCategories: query<Results, CategoryParams>({
+      query: getCategories,
       providesTags: ["Categories"],
     }),
-    deleteCategory: mutation<Results, { id: string }>({
+    deleteCategory: mutation<void, { id: string }>({
       query: deleteCategoryMutation,
       invalidatesTags: ["Categories"],
     }),
   }),
 });
+
+function getCategories({ page = 1, per_page = 10, search = "" }) {
+  const params = { page, per_page, search, is_active: true };
+
+  return `${endpointUrl}?${parseQueryParams(params)}`;
+}
+
+function parseQueryParams(params: CategoryParams): string {
+  const query = new URLSearchParams();
+
+  params.page && query.append("page", params.page.toString());
+  params.per_page && query.append("per_page", params.per_page.toString());
+  params.search && query.append("search", params.search.toString());
+  params.is_active && query.append("is_active", params.is_active.toString());
+
+  return query.toString();
+}
 
 const dummyData: Category = {
   id: "016b3829-dad3-4466-b211-7bc771843869",

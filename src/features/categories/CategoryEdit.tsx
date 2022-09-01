@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CategoryForm } from "./CategoryForm";
+import { CategoryForm } from "./components/CategoryForm";
 import { Category, selectCategoryById, updateCategory } from "./categorySlice";
 import { useSnackbar } from "notistack";
 
