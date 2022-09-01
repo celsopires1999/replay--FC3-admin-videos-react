@@ -1,4 +1,4 @@
-import { Category } from "../../features/categories/categorySlice";
+import { Category } from "../features/categories/categorySlice";
 
 export interface Results {
   data: Category[];

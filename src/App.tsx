@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { Route, Routes } from "react-router-dom";
-import { appTheme } from "./app/config/theme";
+import { appTheme } from "./config/theme";
 import { Header } from "./components/Header";
 import { Layout } from "./components/Layout";
 import { CategoryCreate } from "./features/categories/CategoryCreate";

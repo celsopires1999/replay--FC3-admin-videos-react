@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
-import { CategoryForm } from "./CategoryForm";
+import { CategoryForm } from "./components/CategoryForm";
 import { Category, createCategory } from "./categorySlice";
 import { useSnackbar } from "notistack";
 import { v4 as uuidv4 } from "uuid";
