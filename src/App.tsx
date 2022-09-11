@@ -21,6 +21,7 @@ function App() {
           component={"main"}
           sx={{
             height: "100vh",
+            minHeight: 650,
             backgroundColor: (theme) => theme.palette.grey[900],
           }}
         >

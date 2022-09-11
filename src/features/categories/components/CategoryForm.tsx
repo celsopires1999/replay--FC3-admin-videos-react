@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Category } from "./../categorySlice";
+import { Category } from "./../../../types/category";
 
 type Props = {
   category: Category;
@@ -53,7 +53,7 @@ export function CategoryForm({
                   label="Name"
                   value={category.name}
                   onChange={handleChange}
-                  disabled={isDisabled}
+                  disabled={isDisabled || isLoading}
                 />
               </FormControl>
             </Grid>
@@ -67,7 +67,7 @@ export function CategoryForm({
                   label="Description"
                   value={category.description}
                   onChange={handleChange}
-                  disabled={isDisabled}
+                  disabled={isDisabled || isLoading}
                 />
               </FormControl>
             </Grid>
@@ -82,7 +82,7 @@ export function CategoryForm({
                       inputProps={{ "aria-label": "controlled" }}
                       checked={category.is_active}
                       onChange={handleToggle}
-                      disabled={isDisabled}
+                      disabled={isDisabled || isLoading}
                     />
                   }
                   label="Active"
@@ -101,7 +101,7 @@ export function CategoryForm({
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  disabled={isDisabled}
+                  disabled={isDisabled || isLoading}
                 >
                   Save
                 </Button>

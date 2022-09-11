@@ -1,6 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Typography } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
+import { Typography, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import {
   DataGrid,
@@ -115,8 +114,9 @@ export function CategoriesTable({
 
   const rows: GridRowProps[] = data ? mapDataToGridRows(data) : [];
 
-  function mapDataToGridRows(results: Results) {
-    return results.data.map((category) => ({
+  function mapDataToGridRows(data: Results) {
+    const { data: categories } = data;
+    return categories.map((category) => ({
       id: category.id,
       name: category.name,
       description: category.description,
@@ -134,7 +134,7 @@ export function CategoriesTable({
   const rowCount = data?.meta.total ?? 0;
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}

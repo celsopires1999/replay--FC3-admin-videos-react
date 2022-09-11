@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { GridFilterModel } from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
@@ -10,37 +10,38 @@ import {
 } from "./categorySlice";
 import { CategoriesTable } from "./components/CategoriesTable";
 
+const initialOptions = {
+  page: 1,
+  per_page: 10,
+  rowsPerPage: [10, 20, 30],
+  search: "",
+};
+
 export function CategoryList() {
-  const [page, setPage] = useState<number>(1);
-  const [perPage, setPerPage] = useState<number>(10);
-  const [search, setSearch] = useState<string>("");
-  const rowsPerPage: number[] = [10, 25, 50, 100];
-
-  const options = { per_page: perPage, page, search };
-
+  const [options, setOptions] = useState(initialOptions);
   const { data, isFetching, error } = useGetCategoriesQuery(options);
   const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation();
   const { enqueueSnackbar } = useSnackbar();
 
-  function handleOnPageChange(_page: number): void {
-    setPage(_page + 1);
+  function handleOnPageChange(page: number): void {
+    setOptions({ ...options, page: page + 1 });
   }
 
   function handleFilterChange(filterModel: GridFilterModel): void {
     if (filterModel.quickFilterValues?.length) {
-      const _search = filterModel.quickFilterValues.join(" ");
-      setSearch(_search);
+      const search = filterModel.quickFilterValues.join(" ");
+      setOptions({ ...options, search });
     } else {
-      setSearch("");
+      setOptions({ ...options, search: "" });
     }
   }
 
-  function handleOnPageSizeChange(pageSize: number): void {
-    setPerPage(pageSize);
+  function handleOnPageSizeChange(per_page: number): void {
+    setOptions({ ...options, per_page });
   }
 
-  async function handleDelete(id: string): Promise<void> {
-    await deleteCategory({ id });
+  async function handleDeleteCategory(id: string): Promise<void> {
+    await deleteCategory(id);
   }
 
   useEffect(() => {
@@ -51,6 +52,10 @@ export function CategoryList() {
       enqueueSnackbar("Error deleting category", { variant: "error" });
     }
   }, [deleteCategoryStatus, enqueueSnackbar]);
+
+  if (error) {
+    return <Typography>Error on fetching category</Typography>;
+  }
 
   return (
     <Box>
@@ -68,10 +73,10 @@ export function CategoryList() {
       </Box>
       <CategoriesTable
         data={data}
-        perPage={perPage}
         isFetching={isFetching}
-        rowsPerPage={rowsPerPage}
-        handleDelete={handleDelete}
+        perPage={options.per_page}
+        rowsPerPage={options.rowsPerPage}
+        handleDelete={handleDeleteCategory}
         handleOnPageChange={handleOnPageChange}
         handleFilterChange={handleFilterChange}
         handleOnPageSizeChange={handleOnPageSizeChange}
