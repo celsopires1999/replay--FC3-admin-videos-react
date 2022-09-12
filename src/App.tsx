@@ -1,13 +1,16 @@
 import { Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
+import { SnackbarProvider } from "notistack";
 import { Route, Routes } from "react-router-dom";
-import { appTheme } from "./config/theme";
 import { Header } from "./components/Header";
 import { Layout } from "./components/Layout";
+import { appTheme } from "./config/theme";
+import { CastMemberCreate } from "./features/cast-members/CastMemberCreate";
+import { CastMemberEdit } from "./features/cast-members/CastMemberEdit";
+import { CastMemberList } from "./features/cast-members/CastMemberList";
 import { CategoryCreate } from "./features/categories/CategoryCreate";
 import { CategoryEdit } from "./features/categories/CategoryEdit";
 import { CategoryList } from "./features/categories/CategoryList";
-import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
@@ -29,10 +32,21 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<CategoryList />} />
+              {/* Category */}
               <Route path="/categories" element={<CategoryList />} />
               <Route path="/categories/create" element={<CategoryCreate />} />
               <Route path="/categories/edit/:id" element={<CategoryEdit />} />
 
+              {/* Cast Member */}
+              <Route path="/cast-members" element={<CastMemberList />} />
+              <Route
+                path="/cast-members/create"
+                element={<CastMemberCreate />}
+              />
+              <Route
+                path="/cast-members/edit/:id"
+                element={<CastMemberEdit />}
+              />
               <Route
                 path="*"
                 element={
