@@ -35,7 +35,6 @@ function parseQueryParams(params: CategoryParams): string {
   return query.toString();
 }
 
-// function getCategory({ id }: { id: string }) {
 function getCategory(id: string) {
   return `${endpointUrl}/${id}`;
 }
