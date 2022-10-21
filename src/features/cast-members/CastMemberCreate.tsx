@@ -17,11 +17,6 @@ export function CastMemberCreate() {
     setCastMemberState({ ...castMemberState, [name]: value });
   }
 
-  function handleToggle(e: React.ChangeEvent<HTMLInputElement>): void {
-    const { name, checked } = e.target;
-    setCastMemberState({ ...castMemberState, [name]: checked });
-  }
-
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
@@ -51,7 +46,6 @@ export function CastMemberCreate() {
         isDisabled={createCastMemberStatus.isLoading}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
-        handleToggle={handleToggle}
       >
         Create Cast Member
       </CastMemberForm>

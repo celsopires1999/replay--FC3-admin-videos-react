@@ -11,10 +11,10 @@ import {
 import { CastMemberForm } from "./components/CastMemberForm";
 
 export function CastMemberEdit() {
-  const id = useParams().id || "";
+  const id = useParams().id ?? "";
   const { enqueueSnackbar } = useSnackbar();
   const {
-    data: category,
+    data: castMember,
     isFetching,
     isLoading,
     error,
@@ -31,10 +31,6 @@ export function CastMemberEdit() {
     setCastMemberState({ ...castMemberState, [name]: value });
   }
 
-  function handleToggle(e: React.ChangeEvent<HTMLInputElement>): void {
-    const { name, checked } = e.target;
-    setCastMemberState({ ...castMemberState, [name]: checked });
-  }
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
@@ -59,10 +55,10 @@ export function CastMemberEdit() {
   ]);
 
   useEffect(() => {
-    if (category) {
-      setCastMemberState(category.data);
+    if (castMember) {
+      setCastMemberState(castMember.data);
     }
-  }, [category]);
+  }, [castMember]);
 
   if (error) {
     return <Typography>Error fetching cast member</Typography>;
@@ -76,9 +72,8 @@ export function CastMemberEdit() {
         isDisabled={updateCastMemberStatus.isLoading || isFetching}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
-        handleToggle={handleToggle}
       >
-        Edit Category
+        Edit Cast Member
       </CastMemberForm>
     </Box>
   );

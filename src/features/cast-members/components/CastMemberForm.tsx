@@ -9,7 +9,6 @@ import {
   Paper,
   Radio,
   RadioGroup,
-  Switch,
   TextField,
   Typography,
 } from "@mui/material";
@@ -23,7 +22,6 @@ type Props = {
   isDisabled?: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   children: React.ReactNode;
 };
 
@@ -33,7 +31,6 @@ export function CastMemberForm({
   isDisabled = false,
   handleSubmit,
   handleChange,
-  handleToggle,
   children,
 }: Props) {
   return (
