@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Results } from "../../../types/cast-member";
 
 describe("CastMembersTable Unit Tests", () => {
-  const data: Results = {
+  const apiResult: Results = {
     data: [
       {
         id: "01a20423-248f-48a4-82d6-6b17a11961b8",
@@ -53,15 +53,18 @@ describe("CastMembersTable Unit Tests", () => {
     handleDelete: jest.fn(),
   };
   it("should render cast member table with data", () => {
-    const { asFragment } = render(<CastMembersTable {...Props} data={data} />, {
-      wrapper: BrowserRouter,
-    });
+    const { asFragment } = render(
+      <CastMembersTable {...Props} data={apiResult} />,
+      {
+        wrapper: BrowserRouter,
+      }
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it("should render cast member table with fetching", () => {
     const { asFragment } = render(
-      <CastMembersTable {...Props} data={data} isFetching={true} />,
+      <CastMembersTable {...Props} data={apiResult} isFetching={true} />,
       {
         wrapper: BrowserRouter,
       }

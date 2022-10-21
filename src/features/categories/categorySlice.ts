@@ -19,7 +19,8 @@ export const initialState = {
 const endpointUrl = "/categories";
 
 function getCategories({ page = 1, per_page = 10, search = "" }) {
-  const params = { page, per_page, search, is_active: true };
+  // const params = { page, per_page, search, is_active: false };
+  const params = { page, per_page, search, is_active: undefined };
 
   return `${endpointUrl}?${parseQueryParams(params)}`;
 }

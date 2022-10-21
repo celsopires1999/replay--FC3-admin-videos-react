@@ -14,7 +14,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Category } from "./../../../types/category";
 
-type Props = {
+export type Props = {
   category: Category;
   isLoading?: boolean;
   isDisabled?: boolean;

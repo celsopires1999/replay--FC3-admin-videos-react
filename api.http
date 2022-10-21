@@ -1,6 +1,9 @@
 ### 
 GET http://host.docker.internal:8000/api/categories
 
+### 
+GET http://host.docker.internal:8000/api/categories/07bcf27a-838e-4a05-a8a3-4c7182b9ec81
+
 ###
 POST http://host.docker.internal:8000/api/categories
 Content-Type: application/json
