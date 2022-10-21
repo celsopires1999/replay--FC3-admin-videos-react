@@ -16,7 +16,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CastMember } from "./../../../types/cast-member";
 
-type Props = {
+export type Props = {
   castMember: CastMember;
   isLoading?: boolean;
   isDisabled?: boolean;
@@ -96,7 +96,7 @@ export function CastMemberForm({
                   color="secondary"
                   disabled={isDisabled || isLoading}
                 >
-                  Save
+                  {isLoading ? "Loading..." : "Save"}
                 </Button>
               </Box>
             </Grid>

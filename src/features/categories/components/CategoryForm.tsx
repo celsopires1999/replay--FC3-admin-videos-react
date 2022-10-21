@@ -105,7 +105,7 @@ export function CategoryForm({
                   color="secondary"
                   disabled={isDisabled || isLoading}
                 >
-                  Save
+                  {isLoading ? "Loading..." : "Save"}
                 </Button>
               </Box>
             </Grid>

@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { Results } from "../../../types/cast-member";
 
-type Props = {
+export type Props = {
   data: Results | undefined;
   perPage: number;
   isFetching: boolean;
