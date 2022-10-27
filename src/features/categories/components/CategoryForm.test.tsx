@@ -7,7 +7,7 @@ describe("CategoryForm Unit Tests", () => {
   const category: Category = {
     id: "07bcf27a-838e-4a05-a8a3-4c7182b9ec81",
     name: "Navy",
-    description: null,
+    description: "",
     is_active: true,
     deleted_at: null,
     created_at: "2022-01-17 00:44:21",

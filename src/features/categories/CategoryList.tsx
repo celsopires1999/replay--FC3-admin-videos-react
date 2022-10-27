@@ -54,7 +54,7 @@ export function CategoryList() {
   }, [deleteCategoryStatus, enqueueSnackbar]);
 
   if (error) {
-    return <Typography>Error on fetching category</Typography>;
+    return <Typography>Error fetching categories</Typography>;
   }
 
   return (
